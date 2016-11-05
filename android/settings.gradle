@@ -1,0 +1,15 @@
+rootProject.name = 'OkkamiDemo'
+
+include ':app'
+include ':react-native-tcp'
+project(':react-native-tcp').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-tcp/android')
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':react-native-i18n'
+project(':react-native-i18n').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-i18n/android')
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+include ':react-native-config'
+project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
+include ':fingi-android-sdk:fingi-android-sdk'
+project(':fingi-android-sdk:fingi-android-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/fingi-android-sdk/fingi-android-sdk')
