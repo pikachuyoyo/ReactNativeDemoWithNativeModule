@@ -21,8 +21,7 @@ public class FingiSdkPackage implements ReactPackage {
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    //modules.add(new SmoochManager(reactContext));
-
+    modules.add(new HubClientManager(reactContext));
     return modules;
   }
 

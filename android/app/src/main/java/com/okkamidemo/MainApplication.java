@@ -1,9 +1,12 @@
 package com.okkamidemo;
 
 import android.app.Application;
+import android.location.Address;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.fingi.android.sdk.location.ProvideLocationListener;
+import com.fingisdk.FingiSdkPackage;
 import com.peel.react.TcpSocketsModule;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
@@ -17,7 +20,7 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ReactApplication,ProvideLocationListener {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -28,18 +31,29 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new TcpSocketsModule(),
-            new VectorIconsPackage(),
-            new ReactNativeI18n(),
-            new RNDeviceInfo(),
-            new ReactNativeConfigPackage()
+        new MainReactPackage(),
+        new TcpSocketsModule(),
+        new VectorIconsPackage(),
+        new ReactNativeI18n(),
+        new RNDeviceInfo(),
+        new ReactNativeConfigPackage(),
+        new FingiSdkPackage()
       );
     }
   };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
+    return mReactNativeHost;
+  }
+
+  @Override
+  public String getLastKnownLocation() {
+    return null;
+  }
+
+  @Override
+  public Address getLastKnownAddress() {
+    return null;
   }
 }
