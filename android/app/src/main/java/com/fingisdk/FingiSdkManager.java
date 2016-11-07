@@ -2,16 +2,23 @@ package com.fingisdk;
 
 import android.location.Address;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
 import java.util.List;
+import java.util.Map;
 
 
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fingi.android.sdk.Fingi;
 import com.fingi.android.sdk.FingiSdk;
+import com.fingi.android.sdk.internal.domain.Device;
+import com.fingi.android.sdk.internal.domain.GuestServiceItem;
 import com.fingi.android.sdk.internal.domain.Presets;
 import com.fingi.android.sdk.location.ProvideLocationListener;
 import com.fingi.android.sdk.objects.SessionListener;
@@ -44,12 +51,14 @@ import com.fingi.android.sdk.objects.SessionHubListener;
 import com.fingi.android.sdk.objects.SessionTvListener;
 import com.fingisdk.config.ProductConfig;
 import com.fingisdk.log.LOG;
+import com.google.gson.Gson;
+
 
 /**
  * Created by KHAN on 11/5/2016.
  */
 
-public class HubClientManager extends ReactContextBaseJavaModule implements SessionListener,
+public class FingiSdkManager extends ReactContextBaseJavaModule implements SessionListener,
   SessionPresetsListener, SessionHubListener,
   SessionGuestServicesListener, SessionTvListener,
   MailboxListener, DoorListener, OpenWaysCommListener, SipExtensionListener,
@@ -57,40 +66,136 @@ public class HubClientManager extends ReactContextBaseJavaModule implements Sess
   SessionErrorListener, ProvideLocationListener {
 
   private ReactApplicationContext _reactContxt;
-  private static final String TAG = "fingi-app" + ".HubClientManager";
-  public HubClientManager(ReactApplicationContext reactContext) {
+  private com.fingi.android.sdk.FingiSdk _fingiSdk;
+  private static final String TAG = "fingi-app" + ".FingiSdkManager";
+
+  public FingiSdkManager(ReactApplicationContext reactContext) {
     super(reactContext);
 
     this._reactContxt = reactContext;
-
-    //
-
     ProductConfig.init(this._reactContxt);
     ProductConfig mProductConfig = ProductConfig.get();
-    FingiSdk f = Fingi.initialize(this._reactContxt, mProductConfig);
-    f.getSession().addListener(this);
-    if(!f.getSession().isRegistered()){
-      f.getSession().register();
+    this._fingiSdk = Fingi.initialize(this._reactContxt, mProductConfig);
+    this._fingiSdk.getSession().addListener(this);
+
+    this.guestServices(null);
+  }
+
+
+  /// react methods
+  @ReactMethod
+  public void setSettings(ReadableMap settings) {
+
+  }
+
+  //region PreConnect Wrapper
+
+  private Promise _preconnectPromise;
+  private boolean _preConnected = false;
+
+  @ReactMethod
+  public void preconnect(Promise preconnectPromise) {
+    this._preconnectPromise = preconnectPromise;
+    this._fingiSdk.getSession().addPreconnectListener(this);
+    this._preConnected = false;
+    this._fingiSdk.getSession().preconnect();
+  }
+
+
+  @Override
+  public void onPreconnectSuccess() {
+    this._preConnected = true;
+    if (this._preconnectPromise != null) {
+      WritableMap map = Arguments.createMap();
+      map.putBoolean("success", true);
+      this._preconnectPromise.resolve(map);
     }
-//    if(f.getSession().isRegistered()){
-//      f.getSession().addPresetsListener(this);
-//      f.getSession().reloadEverything();
-//    }
-//
-//
-//    if(f.getSession().hasGuestAuth()){
-//
-//
-//
-//    }
   }
 
   @Override
-  public String getName() {
-    return "HubClientManager";
+  public void onPreconnectError(Throwable e) {
+    this._preConnected = false;
+    if (this._preconnectPromise != null) {
+      this._preconnectPromise.reject(e);
+    }
   }
 
-  private static FingiSdk INSTANCE;
+
+  //endregion
+
+  //region Connect [ Login to room wrapper ]
+
+  private Promise _connectPromise;
+
+  @ReactMethod
+  public void connect(String username, String password, Promise preconnectPromise) {
+    this._connectPromise = preconnectPromise;
+    this._fingiSdk.getSession().addPreconnectListener(this);
+    this._fingiSdk.getSession().connectToRoom(username, password);
+  }
+
+  @Override
+  public void onConnected(Room room) {
+    if (this._connectPromise != null) {
+      WritableMap map = Arguments.createMap();
+      Map<String, Device> devices = room.getDevices();
+
+      map.putBoolean("success", true);
+      this._connectPromise.resolve(null);
+    }
+  }
+
+  @Override
+  public void onConnectError(Throwable e) {
+    if (this._connectPromise != null) {
+      this._connectPromise.reject(e);
+    }
+  }
+
+  //endregion
+
+  //region GuestServices [ Login to room wrapper ]
+
+  private Promise _guestServicesPromise;
+
+  @ReactMethod
+  public void guestServices(Promise guestServicesPromise) {
+    this._guestServicesPromise = guestServicesPromise;
+    this._fingiSdk.getSession().addGuestServicesListener(this);
+    this._fingiSdk.getSession().reloadGuestServices();
+  }
+
+  @Override
+  public void onGuestServicesUpdated() {
+    if (this._guestServicesPromise != null) {
+      WritableMap map = Arguments.createMap();
+      GuestServiceItem i = this._fingiSdk.getSession().getGuestServiceRoot();
+
+      Gson gson = new Gson();
+      String json = gson.toJson(i);
+
+      map.putBoolean("success", true);
+      map.putString("data", json);
+      this._guestServicesPromise.resolve(null);
+    }
+  }
+
+  @Override
+  public void onGuestServicesError(Throwable e) {
+    if (this._guestServicesPromise != null) {
+      this._guestServicesPromise.reject(e);
+    }
+  }
+
+
+  //endregion
+
+  @Override
+  public String getName() {
+    return "FingiSdkManager";
+  }
+
+  private static com.fingi.android.sdk.FingiSdk INSTANCE;
 
   @ReactMethod
   public void StartSession() {
@@ -244,30 +349,12 @@ public class HubClientManager extends ReactContextBaseJavaModule implements Sess
 
   }
 
-  @Override
-  public void onPreconnectSuccess() {
-
-  }
-
-  @Override
-  public void onPreconnectError(Throwable e) {
-
-  }
 
   @Override
   public void onErrorHappened(Throwable e) {
 
   }
 
-  @Override
-  public void onGuestServicesUpdated() {
-
-  }
-
-  @Override
-  public void onGuestServicesError(Throwable e) {
-
-  }
 
   @Override
   public void onHubPingPong(PingPongResult pong) {
@@ -281,7 +368,7 @@ public class HubClientManager extends ReactContextBaseJavaModule implements Sess
 
   @Override
   public void onHubCommandReceived(Command command) {
-
+    command.toString();
   }
 
   @Override
@@ -302,13 +389,13 @@ public class HubClientManager extends ReactContextBaseJavaModule implements Sess
   @Override
   public void onRegistered(Authentication auth) {
 
-    LOG.d(TAG,"Got registered. " + auth.toString());
+    LOG.d(TAG, "Got registered. " + auth.toString());
 
   }
 
   @Override
   public void onRegisterError(Throwable e) {
-    LOG.d(TAG,"Register error! " + e.getMessage());
+    LOG.d(TAG, "Register error! " + e.getMessage());
 
   }
 
@@ -322,15 +409,6 @@ public class HubClientManager extends ReactContextBaseJavaModule implements Sess
 
   }
 
-  @Override
-  public void onConnected(Room room) {
-
-  }
-
-  @Override
-  public void onConnectError(Throwable e) {
-
-  }
 
   @Override
   public void onDisconnected() {

@@ -1,8 +1,10 @@
 import React from 'react'
-import { ScrollView, Text, Image, View } from 'react-native'
-import { Images } from '../Themes'
+import {ScrollView, Text, Image, View} from 'react-native'
+import {Images} from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
-import { Actions as NavigationActions } from 'react-native-router-flux'
+import {Actions as NavigationActions} from 'react-native-router-flux'
+
+import FingiSdk from '../Services/Fingisdk'
 
 // import './UserAgent';
 //
@@ -11,7 +13,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 //var net = require('net');
 
 
-import { Socket } from './Phoenix'
+import {Socket} from './Phoenix'
 
 
 // Styles
@@ -19,52 +21,56 @@ import styles from './Styles/PresentationScreenStyle'
 
 export default class PresentationScreen extends React.Component {
 
+
+
+
   constructor(props) {
     super(props);
 
+   // this.preconnect();
 
-    const TIMEOUT = 10000
-    const URL = 'https://hub.fingi.com:20020';
-    const LOBBY = 'rooms:lobby'
+    // const TIMEOUT = 10000
+    // const URL = 'https://hub.fingi.com:20020';
+    // const LOBBY = 'rooms:lobby'
+    //
+    // const socket = new Socket(URL)
+    //
+    // // configure the event handlers
+    // socket.onOpen(event => console.log('Connected.'))
+    // socket.onError(event => {console.log('Cannot connect->');console.log(event)})
+    // socket.onClose(event => console.log('Goodbye.'))
+    //
+    // // open a connection to the server
+    // socket.connect()
 
-    const socket = new Socket(URL)
+    /*
+     var ws = new WebSocket('wss://hub.fingi-staging.com:20020',{
+     rejectUnauthorized: false
+     });
 
-    // configure the event handlers
-    socket.onOpen(event => console.log('Connected.'))
-    socket.onError(event => {console.log('Cannot connect->');console.log(event)})
-    socket.onClose(event => console.log('Goodbye.'))
+     ws.onopen = () => {
+     // connection opened
 
-    // open a connection to the server
-    socket.connect()
+     ws.send('something'); // send a message
+     };
 
-/*
-    var ws = new WebSocket('wss://hub.fingi-staging.com:20020',{
-      rejectUnauthorized: false
-    });
+     ws.onmessage = (e) => {
+     // a message was received
 
-    ws.onopen = () => {
-      // connection opened
+     console.log('message : ' + e.data);
+     };
 
-      ws.send('something'); // send a message
-    };
+     ws.onerror = (e) => {
+     // an error occurred
+     console.log('error:'+e.message);
+     };
 
-    ws.onmessage = (e) => {
-      // a message was received
+     ws.onclose = (e) => {
+     // connection closed
+     console.log('close:'+e.code, e.reason);
+     };
 
-      console.log('message : ' + e.data);
-    };
-
-    ws.onerror = (e) => {
-      // an error occurred
-      console.log('error:'+e.message);
-    };
-
-    ws.onclose = (e) => {
-      // connection closed
-      console.log('close:'+e.code, e.reason);
-    };
-
-*/
+     */
 
 //     var socket = new SocketIO('hub.fingi-staging.com', {secure: true, port:20020});
 //     socket.connect();
@@ -86,7 +92,8 @@ export default class PresentationScreen extends React.Component {
     //   console.log('--------->>> msg :' + msg);
     // });
 
-    {/*var client = net.createConnection({port: 20020, host: "hub.fingi-staging.com"});*/}
+    {/*var client = net.createConnection({port: 20020, host: "hub.fingi-staging.com"});*/
+    }
 
     // client.on('error', function(error) {
     //   console.log(error)
@@ -105,18 +112,17 @@ export default class PresentationScreen extends React.Component {
   }
 
 
-
-  render () {
+  render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch'/>
         <ScrollView style={styles.container}>
           <View style={styles.centered}>
-            <Image source={Images.clearLogo} style={styles.logo} />
+            <Image source={Images.clearLogo} style={styles.logo}/>
           </View>
 
-          <View style={styles.section} >
-            <Text style={styles.sectionText} >
+          <View style={styles.section}>
+            <Text style={styles.sectionText}>
               Default screens for development, debugging, and alpha testing
               are available below.
             </Text>
