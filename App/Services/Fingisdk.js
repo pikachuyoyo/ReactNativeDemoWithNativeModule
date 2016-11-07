@@ -4,9 +4,22 @@
 
 var React = require('react-native');
 var {NativeModules} = React;
+var sdkManager = NativeModules.FingiSdkManager;
+
+// export default {
+//
+//   connect: async(login, password)=> {
+//     try {
+//       await sdkManager.preconnect();
+//       return await sdkManager.connect(login, password);
+//     } catch (e) {
+//       throw e;
+//     }
+//   }
+// }
 
 
-export default class FingiSdk {
+class FingiSdk {
 
   sdkManager = NativeModules.FingiSdkManager;
 
@@ -27,12 +40,21 @@ export default class FingiSdk {
     })();//call myself !
   }
 
-  connect(login, password) {
+  async connect(login, password) {
+    try {
+      return await
+      this.sdkManager.connect(login, password);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  connectX(login, password) {
 
     if (this.isPreconnected) {
       (async function () {
         try {
-          var result = await _myself.sdkManager.connect(login,password);
+          var result = await _myself.sdkManager.connect(login, password);
           console.log("Connection successful...")
           if (result.success === true) {
             _myself.isPreconnected = true;
@@ -50,4 +72,5 @@ export default class FingiSdk {
 }
 
 
-export default FingiSdk;
+export default FingiSdk = new FingiSdk();
+

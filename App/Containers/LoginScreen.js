@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyle'
 import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
+import FingiSdkActions from '../Redux/FingiSdkRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // I18n
@@ -23,8 +23,8 @@ class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'reactnative@infinite.red',
-      password: 'password',
+      username: 'bob-1',
+      password: '1234',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
@@ -159,7 +159,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (username, password) => dispatch(FingiSdkActions.connectToRoomRequest(username, password))
   }
 }
 

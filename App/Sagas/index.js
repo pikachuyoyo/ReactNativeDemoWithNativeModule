@@ -1,19 +1,23 @@
-import { takeLatest } from 'redux-saga'
+import {takeLatest} from 'redux-saga'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
+import FingiSdk from '../Services/Fingisdk'
 import DebugSettings from '../Config/DebugSettings'
 
 /* ------------- Types ------------- */
 
-import { StartupTypes } from '../Redux/StartupRedux'
-import { TemperatureTypes } from '../Redux/TemperatureRedux'
-import { LoginTypes } from '../Redux/LoginRedux'
+import {StartupTypes} from '../Redux/StartupRedux'
+import {TemperatureTypes} from '../Redux/TemperatureRedux'
+import {LoginTypes} from '../Redux/LoginRedux'
+import {FingiSdkTypes} from '../Redux/FingiSdkRedux'
 
 /* ------------- Sagas ------------- */
 
-import { startup } from './StartupSagas'
-import { login } from './LoginSagas'
-import { getTemperature } from './TemperatureSagas'
+import {startup} from './StartupSagas'
+import {login} from './LoginSagas'
+import {getTemperature} from './TemperatureSagas'
+import {connectToRoom} from './FingiSdkSagas'
+
 
 /* ------------- API ------------- */
 
@@ -23,13 +27,16 @@ const api = DebugSettings.useFixtures ? FixtureAPI : API.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
-export default function * root () {
+export default function * root() {
   yield [
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)
+    takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api),
+
+    takeLatest(FingiSdkTypes.CONNECT_TO_ROOM_REQUEST, connectToRoom, FingiSdk)
+
   ]
 }
