@@ -16,7 +16,7 @@ import {FingiSdkTypes} from '../Redux/FingiSdkRedux'
 import {startup} from './StartupSagas'
 import {login} from './LoginSagas'
 import {getTemperature} from './TemperatureSagas'
-import {connectToRoom} from './FingiSdkSagas'
+import {connectToRoom, getGuestService} from './FingiSdkSagas'
 
 
 /* ------------- API ------------- */
@@ -36,7 +36,8 @@ export default function * root() {
     // some sagas receive extra parameters in addition to an action
     takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api),
 
-    takeLatest(FingiSdkTypes.CONNECT_TO_ROOM_REQUEST, connectToRoom, FingiSdk)
+    takeLatest(FingiSdkTypes.CONNECT_TO_ROOM_REQUEST, connectToRoom, FingiSdk),
+    takeLatest(FingiSdkTypes.GUEST_SERVICES_REQUEST, getGuestService, FingiSdk)
 
   ]
 }

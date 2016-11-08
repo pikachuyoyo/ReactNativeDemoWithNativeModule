@@ -1,36 +1,30 @@
 import {put} from 'redux-saga/effects'
-import LoginActions from '../Redux/LoginRedux'
+import FingiSdkActions from '../Redux/FingiSdkRedux'
 
-
-let React = require('react-native');
-let {NativeModules} = React;
 
 
 // attempts to login
 export function * connectToRoom(api, action) {
 
   try {
-    var result = api.connect(action.username, action.password);
-    yield put(LoginActions.loginSuccess(result));
+    var result = yield api.connect(action.username, action.password);
+    yield put(FingiSdkActions.loginSuccess(result));
   } catch (e) {
-    yield put(LoginActions.loginFailure(e));
+    yield put(FingiSdkActions.loginFailure(e.message));
   }
 
-
-  // (async function () {
-  //   try {
-  //     var result = await fingiSdk.connect(action.username, action.password);
-  //     yield put(LoginActions.loginSuccess(result))
-  //   } catch (e) {
-  //     console.log("Connection failed . error : " + e.message)
-  //     yield put(LoginActions.loginFailure(e))
-  //   }
-  // })();//call myself !
-
-  // try {
-  //   var result = await fingiSdk.connect(action.username, action.password);
-  //   yield put(LoginActions.loginSuccess(result))
-  // } catch (e) {
-  //   yield put(LoginActions.loginFailure(e))
-  // }
 }
+
+
+// attempts to login
+export function * getGuestService(api) {
+
+  try {
+    var result = yield api.guestServices();
+    yield put(FingiSdkActions.guestServicesSuccess(result));
+  } catch (e) {
+    yield put(FingiSdkActions.guestServicesFailure(e.message));
+  }
+
+}
+

@@ -10,22 +10,41 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.fire,
+    backgroundColor: Colors.snow,
     marginVertical: Metrics.smallMargin,
-    justifyContent: 'center'
+    justifyContent: 'flex-start',
+    flexDirection:'row',
+    height:75
   },
   boldLabel: {
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: Colors.snow,
+    color: Colors.charcoal,
     textAlign: 'center',
     marginBottom: Metrics.smallMargin
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow
+    color: Colors.charcoal
   },
   listContent: {
     marginTop: Metrics.baseMargin
+  },
+  statusBarContainer:{
+    flexDirection: 'row',
+    flex: 1,
+    height: Metrics.navBarHeight,
+    width: Metrics.screenWidth,
+    backgroundColor: Colors.transparent,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    justifyContent: 'space-between',
+  },
+  statusBarTitleContainer:{
+    justifyContent: 'center',
+    alignItems:'center',
+    height:Metrics.navBarHeight,
   }
+
 })

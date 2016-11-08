@@ -9,7 +9,7 @@ import AlertMessage from '../Components/AlertMessage'
 // Styles
 import styles from './Styles/ListviewExampleStyle'
 
-class ListviewExample extends React.Component {
+class ListviewExampleLvl2 extends React.Component {
 
   constructor(props) {
     super(props)
@@ -31,29 +31,20 @@ class ListviewExample extends React.Component {
 
     // Datasource is always in state
     this.state = {
-      dataSource: ds.cloneWithRows({}),
+      dataSource: ds.cloneWithRows(this.props.data),
     }
   }
 
   componentWillReceiveProps(newProps) {
-    //debugger;
-
-    if (newProps.guestServicesTree && newProps.guestServicesTree.children) {
-      console.log('------------ componentWillReceiveProps (guest services) ----------------');
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(newProps.guestServicesTree.children)
-      })
-    }
+    // //debugger;
+    // console.log('------------ componentWillReceiveProps (guest services) ----------------');
+    // if (newProps.guestServicesTree && newProps.guestServicesTree.children) {
+    //   this.setState({
+    //     dataSource: this.state.dataSource.cloneWithRows(newProps.guestServicesTree.children)
+    //   })
+    // }
   }
 
-  componentDidMount() {
-    this.props.guestServicesRequest();
-  }
-
-
-  handleRowClick(rowDataLvl2) {
-
-  }
 
   /* ***********************************************************
    * STEP 3
@@ -64,10 +55,9 @@ class ListviewExample extends React.Component {
    return <MyCustomCell title={rowData.title} description={rowData.description} />
    *************************************************************/
   _renderRow(rowData) {
-    console.log(this)
     return (
       <TouchableOpacity style={styles.row} onPress={()=> {
-        NavigationActions.listviewExampleLvl2({data: rowData.children})
+        NavigationActions.listviewExampleLvl3({data: rowData.children})
       }}>
 
         <View style={{width: 90, marginRight: 15}}>
@@ -75,11 +65,11 @@ class ListviewExample extends React.Component {
             source={{uri: rowData.icon}}
             style={{height: 70,}} resizeMode='cover'/>
         </View>
+
         <View style={{flexDirection: 'column'}}>
           <Text style={styles.boldLabel}>{rowData.title}</Text>
           <Text style={styles.label}>{rowData.body}</Text>
         </View>
-
 
       </TouchableOpacity>
     )
@@ -118,37 +108,32 @@ class ListviewExample extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           pageSize={25}
-          enableEmptySections={true}
         />
       </View>
     )
   }
 }
 
-ListviewExample.propTypes = {
-  dispatch: PropTypes.func,
-  guestServicesFetching: PropTypes.bool,
-  guestServicesError: PropTypes.string,
-  guestServicesTree: PropTypes.object,
-  guestServiceRequest: PropTypes.func
+ListviewExampleLvl2.propTypes = {
+  data: PropTypes.array,
 }
 
-ListviewExample.defaultProps = {
-  guestServicesTree: {},
+ListviewExampleLvl2.defaultProps = {
+  //guestServicesTree: {},
 }
 
 const mapStateToProps = state => {
   return {
-    guestServicesFetching: state.fingiSdk.guestServicesFetching,
-    guestServicesError: state.fingiSdk.guestServicesError,
-    guestServicesTree: state.fingiSdk.guestServicesTree,
+    // guestServicesFetching: state.fingiSdk.guestServicesFetching,
+    // guestServicesError: state.fingiSdk.guestServicesError,
+    // guestServicesTree: state.fingiSdk.guestServicesTree,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    guestServicesRequest: () => dispatch(FingiSdkActions.guestServicesRequest())
+    //guestServicesRequest: () => dispatch(FingiSdkActions.guestServicesRequest())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListviewExample)
+export default connect(mapStateToProps, mapDispatchToProps)(ListviewExampleLvl2)

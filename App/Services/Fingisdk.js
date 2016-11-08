@@ -40,34 +40,24 @@ class FingiSdk {
     })();//call myself !
   }
 
-  async connect(login, password) {
+  connect(login, password) {
     try {
-      return await
-      this.sdkManager.connect(login, password);
+      //this returns a promise!
+      return this.sdkManager.connect(login, password);
     } catch (e) {
       throw e;
     }
   }
 
-  connectX(login, password) {
-
-    if (this.isPreconnected) {
-      (async function () {
-        try {
-          var result = await _myself.sdkManager.connect(login, password);
-          console.log("Connection successful...")
-          if (result.success === true) {
-            _myself.isPreconnected = true;
-          }
-        } catch (e) {
-          console.log("Connection failed . error : " + e.message)
-        }
-      })();//call myself !
-    } else {
-      console.log("Not preconnected. so connecting to room failed...")
+  guestServices() {
+    try {
+      //this returns a promise!
+      return this.sdkManager.guestServices();
+    } catch (e) {
+      throw e;
     }
-
   }
+
 
 }
 
