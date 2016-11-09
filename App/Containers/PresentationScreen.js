@@ -78,21 +78,21 @@ class PresentationScreen extends React.Component {
           </View>
 
           {/*<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 15}}>*/}
-            {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
-              {/*AC Meeting Room Setpoint ( ac-1 )*/}
-            {/*</Text>*/}
-            {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
-              {/*{this.state.ac1Setpoint}*/}
-            {/*</Text>*/}
+          {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
+          {/*AC Meeting Room Setpoint ( ac-1 )*/}
+          {/*</Text>*/}
+          {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
+          {/*{this.state.ac1Setpoint}*/}
+          {/*</Text>*/}
           {/*</View>*/}
 
           {/*<View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 15}}>*/}
-            {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
-              {/*AC Meeting Room FAN Speed ( ac-1 )*/}
-            {/*</Text>*/}
-            {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
-              {/*{this.state.speed}*/}
-            {/*</Text>*/}
+          {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
+          {/*AC Meeting Room FAN Speed ( ac-1 )*/}
+          {/*</Text>*/}
+          {/*<Text style={{fontSize: 18, color: Colors.snow, fontWeight: 'bold'}}>*/}
+          {/*{this.state.speed}*/}
+          {/*</Text>*/}
           {/*</View>*/}
 
           <RoundedButton onPress={()=> this.props.commandToRoomRequest("QUERY")}>
