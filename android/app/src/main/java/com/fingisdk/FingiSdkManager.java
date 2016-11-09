@@ -2,6 +2,7 @@ package com.fingisdk;
 
 import android.location.Address;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -91,14 +92,15 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
     this._fingiSession = this._fingiSdk.getSession();
     this._fingiSession.addListener(this);
     this._fingiSession.addHubListener(this);
+    this._fingiSession.addPresetsListener(this);
 
     //this._fingiSession.setHubUrl();
     //   guestServices(null);
 
-    if (this._fingiSession.isRoomConnected()) {
-      this.connect2Hub(null);
-    }
 
+    // this._fingiSession.reloadEverything();
+
+//
   }
 
   private void sendEventToJs(String eventName,
@@ -165,9 +167,13 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
   public void onConnected(Room room) {
     if (this._connectPromise != null) {
       WritableMap map = Arguments.createMap();
-      Map<String, Device> devices = room.getDevices();
-
       map.putBoolean("success", true);
+
+      //now connect to hub!
+      if (!_fingiSession.isHubConnected() || !_fingiSession.isRegistered())
+        this.connect2Hub();
+
+
       this._connectPromise.resolve(null);
     }
   }
@@ -266,18 +272,16 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
   //region Hub Command [ hubCommand wrapper ]
 
 
-  private Promise _connect2HubPromise;
-
   @ReactMethod
-  public void connect2Hub(Promise preconnectPromise) {
+  public void connect2Hub() {
 
-    if (_fingiSession.isHubConnected()) {
-      Log.d(TAG, "Hub is already connected!");
-      if (preconnectPromise != null) preconnectPromise.resolve(null);
+    if (_fingiSession.isHubConnected() && _fingiSession.isRegistered()) {
+      Log.d(TAG, "Hub is already connected & registered!");
     } else {
       if (_fingiSession.getHubUrl() != null && !_fingiSession.getHubUrl().isEmpty()) {
         //ok it will connect eventually!
         Log.d(TAG, "Hub url is : " + _fingiSession.getHubUrl() + " , so it will connect eventually...");
+        _fingiSession.forceStart();
       } else {
         Log.d(TAG, "Hub url is empty , getting presets first..");
         _fingiSession.getPresets();
@@ -289,12 +293,13 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
   public void onPresetsUpdated(Presets presets) {
     Log.d(TAG, "Gotten presets...");
 
-    if (!_fingiSession.isHubConnected()) {
-      String dnsName = presets.string(Presets.STRING.hub_dns_name);
-      String port = presets.string(Presets.STRING.hub_ssl_port);
-      String hubUrl = "ssl://" + dnsName + ":" + port;
-      _fingiSession.setHubUrl(hubUrl);
-    }
+
+    String dnsName = presets.string(Presets.STRING.hub_dns_name);
+    String port = presets.string(Presets.STRING.hub_ssl_port);
+    String hubUrl = "ssl://" + dnsName + ":" + port;
+    _fingiSession.setHubUrl(hubUrl);
+    _fingiSession.forceStart();
+
 
   }
 
@@ -321,18 +326,26 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
   @Override
   public void onHubPingPong(PingPongResult pong) {
 
+    LOG.d(TAG, "PING_PONG");
   }
 
   @Override
   public void onHubConnected() {
-
+    LOG.d(TAG, "HUB_CONNECTED");
   }
 
   @Override
   public void onHubCommandReceived(Command command) {
 
+    if (command.match("TIME") && !_fingiSession.isRegistered()) {
+      _fingiSession.register();
+    }
+
+    String deconstructedMsg = command.action + " " + TextUtils.join(" ", command.arguments);
+    LOG.d(TAG, "ON_COMMAND :" + deconstructedMsg);
+
     WritableMap map = Arguments.createMap();
-    map.putString("command", command.toString());
+    map.putString("command", deconstructedMsg);
     this.sendEventToJs("onHubCommand", map);
   }
 
@@ -367,6 +380,7 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
 
   //endregion
 
+
   @Override
   public String getName() {
     return "FingiSdkManager";
@@ -374,10 +388,6 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
 
   private static com.fingi.android.sdk.FingiSdk INSTANCE;
 
-  @ReactMethod
-  public void StartSession() {
-    Fingi.initialize(this._reactContxt, null);
-  }
 
   @Override
   public String getLastKnownLocation() {

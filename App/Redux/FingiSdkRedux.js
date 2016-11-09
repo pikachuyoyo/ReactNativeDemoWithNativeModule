@@ -40,14 +40,14 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 // we're attempting to fingiSdk
-export const loginRequest = state => state.merge({fetching: true, loggedIn: false, error: null})
+export const connectToRoomRequest = state => state.merge({fetching: true, loggedIn: false, error: null})
 
 // we've successfully logged in
-export const loginSuccess = (state, {username}) =>
+export const connectToRoomSuccess = (state, {username}) =>
   state.merge({fetching: false, loggedIn: true, error: null})
 
 // we've had a problem logging in
-export const loginFailure = (state, {error}) =>
+export const connectToRoomFailure = (state, {error}) =>
   state.merge({fetching: false, loggedIn: false, error})
 
 // we've logged out
@@ -78,9 +78,9 @@ export const guestServiceFailure = (state, {guestServicesError}) =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.CONNECT_TO_ROOM_REQUEST]: loginRequest,
-  [Types.CONNECT_TO_ROOM_SUCCESS]: loginSuccess,
-  [Types.CONNECT_TO_ROOM_FAILURE]: loginFailure,
+  [Types.CONNECT_TO_ROOM_REQUEST]: connectToRoomRequest,
+  [Types.CONNECT_TO_ROOM_SUCCESS]: connectToRoomSuccess,
+  [Types.CONNECT_TO_ROOM_FAILURE]: connectToRoomFailure,
 
 
   /*

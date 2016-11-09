@@ -23,7 +23,7 @@ class LoginScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: 'bob-1',
+      username: 'khan',
       password: '1234',
       visibleHeight: Metrics.screenHeight,
       topLogo: {width: Metrics.screenWidth}
@@ -32,11 +32,12 @@ class LoginScreen extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.forceUpdate()
+    this.forceUpdate();
+
     // Did the login attempt complete?
-    // if (this.isAttempting && !newProps.fetching) {
-    //   NavigationActions.pop()
-    // }
+    if (newProps.loggedIn===true) {
+      NavigationActions.presentationScreen()
+    }
   }
 
   componentWillMount() {

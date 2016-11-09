@@ -8,9 +8,9 @@ export function * connectToRoom(api, action) {
 
   try {
     var result = yield api.connect(action.username, action.password);
-    yield put(FingiSdkActions.loginSuccess(result));
+    yield put(FingiSdkActions.connectToRoomSuccess(result));
   } catch (e) {
-    yield put(FingiSdkActions.loginFailure(e.message));
+    yield put(FingiSdkActions.connectToRoomFailure(e.message));
   }
 
 }
