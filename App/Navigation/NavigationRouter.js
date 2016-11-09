@@ -37,33 +37,19 @@ class NavigationRouter extends Component {
                    onRight={() => window.alert('Example Pressed')}/>
 
 
-            <Scene initial key='splashScreen' component={Splash} title='Components' hideNavBar='true' />
-
-            <Scene key='login'>
-              <Scene key="_login" component={LoginScreen} title='Login'
-                     hideNavBar/>
-            </Scene>
+            <Scene initial key='splashScreen' component={Splash} title='Components'/>
+            <Scene key="login" component={LoginScreen} title='Login'/>
 
 
-            <Scene key='listviewExample'>
-              <Scene key='_listviewExample' component={ListviewExample} title='MY OKKAMI'
-                     renderLeftButton={NavItems.hamburgerButton} hideNavBar="false"/>
-            </Scene>
+            <Scene key='listviewExample' component={ListviewExample} title='MY OKKAMI'
+                   renderLeftButton={NavItems.hamburgerButton}/>
 
-
-            <Scene key='presentationScreen'>
-              <Scene key='_presentationScreen' component={PresentationScreen} title='Controls'
-                     renderLeftButton={NavItems.hamburgerButton} hideNavBar="false"/>
-            </Scene>
-
-            <Scene key='listviewExampleLvl2'>
-              <Scene key='_listviewExampleLvl2' component={ListviewExampleLvl2} title='MY OKKAMI LVL2'
-                     hideNavBar="false"/>
-            </Scene>
-            <Scene key='listviewExampleLvl3'>
-              <Scene key='_listviewExampleLvl3' component={ListviewExampleLvl2} title='MY OKKAMI LVL3'
-                     hideNavBar="false"/>
-            </Scene>
+            <Scene key='listviewExampleLvl3' component={ListviewExampleLvl3} title='MY OKKAMI LVL3'
+            />
+            <Scene key='listviewExampleLvl2' component={ListviewExampleLvl2} title='MY OKKAMI LVL2'
+            />
+            <Scene key='presentationScreen' component={PresentationScreen} title='Controls'
+                   renderLeftButton={NavItems.hamburgerButton}/>
 
 
             <Scene key='listviewGridExample' component={ListviewGridExample} title='Listview Grid'/>
