@@ -5,6 +5,7 @@ import FingiSdkActions from '../Redux/FingiSdkRedux'
 import {Actions as NavigationActions} from 'react-native-router-flux'
 // For empty lists
 import AlertMessage from '../Components/AlertMessage'
+import RoundedButton from '../Components/RoundedButton'
 
 // Styles
 import styles from './Styles/ListviewExampleStyle'
@@ -48,6 +49,7 @@ class ListviewExample extends React.Component {
 
   componentDidMount() {
     this.props.guestServicesRequest();
+    NavigationActions.refresh()
   }
 
 
@@ -112,7 +114,9 @@ class ListviewExample extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
         <AlertMessage title='Nothing to See Here, Move Along' show={this._noRowData()}/>
+
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
@@ -120,6 +124,10 @@ class ListviewExample extends React.Component {
           pageSize={25}
           enableEmptySections={true}
         />
+
+        <RoundedButton onPress={()=>!this.props.guestServicesFetching && this.props.guestServicesRequest()}>
+          {this.props.guestServicesFetching ? "FETCHING..." : "RELOAD"}
+        </RoundedButton>
       </View>
     )
   }

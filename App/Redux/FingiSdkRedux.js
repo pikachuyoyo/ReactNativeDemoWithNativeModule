@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const {Types, Creators} = createActions({
   connectToRoomRequest: ['username', 'password'],
-  connectToRoomSuccess: ['roomData'],
+  connectToRoomSuccess: null,
   connectToRoomFailure: ['error'],
 
   disconnectRoomRequest: null,
@@ -18,7 +18,6 @@ const {Types, Creators} = createActions({
   commandToRoomRequest: ['command'],
   commandToRoomSuccess: null,
   commandToRoomFailure: ['error'],
-
 })
 
 export const FingiSdkTypes = Types
@@ -50,8 +49,7 @@ export const INITIAL_STATE = Immutable({
 export const connectToRoomRequest = state => state.merge({fetching: true, loggedIn: false, error: null})
 
 // we've successfully logged in
-export const connectToRoomSuccess = (state, {username}) =>
-  state.merge({fetching: false, loggedIn: true, error: null})
+export const connectToRoomSuccess = state => state.merge({fetching: false, loggedIn: true, error: null})
 
 // we've had a problem logging in
 export const connectToRoomFailure = (state, {error}) =>

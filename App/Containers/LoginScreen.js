@@ -32,11 +32,11 @@ class LoginScreen extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.forceUpdate();
-
+    // this.forceUpdate();
+    //
     // Did the login attempt complete?
-    if (newProps.loggedIn===true) {
-      NavigationActions.presentationScreen()
+    if (newProps.loggedIn === true) {
+      NavigationActions.listviewExample()
     }
   }
 
@@ -127,20 +127,21 @@ class LoginScreen extends React.Component {
               placeholder={I18n.t('password')}/>
 
             <Text>{this.props.error}</Text>
-            <Text>{this.props.loggedIn?"Logged in!":""}</Text>
-            <Text>{this.props.fetching?"Attempting to login":""}</Text>
+            <Text>{this.props.loggedIn ? "Logged in!" : ""}</Text>
           </View>
 
 
           <View style={[Styles.loginRow]}>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={()=> {
+              if (!this.props.fetching)this.handlePressLogin()
+            }
+            }>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
+                <Text style={Styles.loginText}>
+
+                  {this.props.fetching ? "Logging in..." : "Login"}
+
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -163,11 +164,12 @@ LoginScreen.propTypes = {
 
 LoginScreen.defaultProps = {
   loggedIn: false,
+  fetching: false,
 }
 
 const mapStateToProps = state => {
   return {
-    guestServicesFetching: state.fingiSdk.guestServicesFetching,
+    fetching: state.fingiSdk.fetching,
     error: state.fingiSdk.error,
     loggedIn: state.fingiSdk.loggedIn,
   }

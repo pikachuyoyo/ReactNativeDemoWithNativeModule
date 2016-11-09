@@ -6,6 +6,7 @@ import {Actions as NavigationActions} from 'react-native-router-flux'
 import FingiSdkActions from '../Redux/FingiSdkRedux'
 import {connect} from 'react-redux'
 
+
 // Styles
 import styles from './Styles/PresentationScreenStyle'
 
@@ -21,6 +22,10 @@ class PresentationScreen extends React.Component {
 
     }
   }
+
+  // static renderNavigationBar(props) {
+  //   return (<NavBar navbarProps={props}/>);
+  // }
 
   componentWillMount() {
     var _myself = this;
