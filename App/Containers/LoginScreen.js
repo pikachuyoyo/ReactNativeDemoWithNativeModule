@@ -36,7 +36,7 @@ class LoginScreen extends React.Component {
     //
     // Did the login attempt complete?
     if (newProps.loggedIn === true) {
-      NavigationActions.listviewExample()
+      NavigationActions.listviewExample({type: 'reset', hideNavBar: 'false'})
     }
   }
 

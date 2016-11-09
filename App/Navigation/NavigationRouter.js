@@ -19,7 +19,7 @@ import ThemeScreen from '../Containers/ThemeScreen'
 import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import ListviewExampleLvl2 from '../Containers/ListviewExampleLvl2'
 import ListviewExampleLvl3 from '../Containers/ListviewExampleLvl3'
-
+import Splash from '../Containers/Splash'
 /* **************************
  * Documentation: https://github.com/aksonov/react-native-router-flux
  ***************************/
@@ -37,9 +37,9 @@ class NavigationRouter extends Component {
                    onRight={() => window.alert('Example Pressed')}/>
 
 
+            <Scene initial key='splashScreen' component={Splash} title='Components' hideNavBar='true' />
 
-
-            <Scene initial key='login'>
+            <Scene key='login'>
               <Scene key="_login" component={LoginScreen} title='Login'
                      hideNavBar/>
             </Scene>
