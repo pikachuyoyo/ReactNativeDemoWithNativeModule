@@ -318,7 +318,7 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
     if (commandArray.length == 1)
       m = new Command(command.trim());
     else {
-      m = new Command(commandArray[0], Arrays.copyOfRange(commandArray, 1, commandArray.length - 1));
+      m = new Command(commandArray[0], Arrays.copyOfRange(commandArray, 1, commandArray.length));
     }
     this._fingiSession.sendCommand(m);
   }

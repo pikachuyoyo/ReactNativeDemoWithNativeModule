@@ -34,16 +34,23 @@ class NavigationRouter extends Component {
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title}
                  leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-            <Scene key='presentationScreen' component={PresentationScreen} title='Ignite'
-                   renderLeftButton={NavItems.hamburgerButton}/>
+
+
+
             <Scene key='componentExamples' component={AllComponentsScreen} title='Components'/>
             <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example'
                    onRight={() => window.alert('Example Pressed')}/>
-            <Scene initial key='login' component={LoginScreen} title='Login' hideNavBar/>
 
-            <Scene  key='listviewExample' component={ListviewExample} title='MY OKKAMI'/>
-            <Scene  key='listviewExampleLvl2' component={ListviewExampleLvl2} title='MY OKKAMI LVL2'/>
-            <Scene  key='listviewExampleLvl3' component={ListviewExampleLvl2} title='MY OKKAMI LVL3'/>
+
+            <Scene key='presentationScreen' component={PresentationScreen} title='Ignite'
+                   renderLeftButton={NavItems.hamburgerButton}/>
+            <Scene initial key='login' component={LoginScreen} title='Login' hideNavBar/>
+            <Scene key='listviewExample' component={ListviewExample} title='MY OKKAMI'/>
+            <Scene key='listviewExampleLvl2' component={ListviewExampleLvl2} title='MY OKKAMI LVL2'/>
+            <Scene key='listviewExampleLvl3' component={ListviewExampleLvl2} title='MY OKKAMI LVL3'/>
+
+
+
             <Scene key='listviewGridExample' component={ListviewGridExample} title='Listview Grid'/>
             <Scene key='listviewSectionsExample' component={ListviewSectionsExample} title='Listview Sections'/>
             <Scene key='apiTesting' component={APITestingScreen} title='API Testing'/>

@@ -49,6 +49,15 @@ class FingiSdk {
     }
   }
 
+  sendHubCommand(command) {
+    try {
+      //this returns a promise!
+      return this.sdkManager.sendHubCommand(command);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   guestServices() {
     try {
       //this returns a promise!
@@ -57,8 +66,6 @@ class FingiSdk {
       throw e;
     }
   }
-
-
 
 
 }

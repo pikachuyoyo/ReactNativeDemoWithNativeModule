@@ -15,6 +15,10 @@ const {Types, Creators} = createActions({
   guestServicesSuccess: ['guestServicesTree'],
   guestServicesFailure: ['guestServicesError'],
 
+  commandToRoomRequest: ['command'],
+  commandToRoomSuccess: null,
+  commandToRoomFailure: ['error'],
+
 })
 
 export const FingiSdkTypes = Types
@@ -32,7 +36,10 @@ export const INITIAL_STATE = Immutable({
 
   guestServicesTree: {},
   guestServicesFetching: false,
-  guestServicesError: null
+  guestServicesError: null,
+
+  //---------
+  sendingCommand: false,
 
 
 })
@@ -49,6 +56,18 @@ export const connectToRoomSuccess = (state, {username}) =>
 // we've had a problem logging in
 export const connectToRoomFailure = (state, {error}) =>
   state.merge({fetching: false, loggedIn: false, error})
+
+
+// we're attempting to fingiSdk
+export const commandToRoomRequest = state => state.merge({sendingCommand:true})
+
+// we've successfully logged in
+export const commandToRoomSuccess = (state, action) =>
+  state.merge({sendingCommand:false})
+
+// we've had a problem logging in
+export const commandToRoomFailure = (state) =>
+  state.merge({sendingCommand:false})
 
 // we've logged out
 export const logout = state => INITIAL_STATE
@@ -82,12 +101,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CONNECT_TO_ROOM_SUCCESS]: connectToRoomSuccess,
   [Types.CONNECT_TO_ROOM_FAILURE]: connectToRoomFailure,
 
+  [Types.COMMAND_TO_ROOM_REQUEST]: commandToRoomRequest,
+  [Types.COMMAND_TO_ROOM_SUCCESS]: commandToRoomSuccess,
+  [Types.COMMAND_TO_ROOM_FAILURE]: commandToRoomFailure,
 
-  /*
-   *guestServicesRequest: null,
-   guestServicesSuccess: ['guestServices'],
-   guestServicesFailure: ['error'],
-   * */
   [Types.GUEST_SERVICES_REQUEST]: guestServicesRequest,
   [Types.GUEST_SERVICES_SUCCESS]: guestServiceSuccess,
   [Types.GUEST_SERVICES_FAILURE]: guestServiceFailure,
