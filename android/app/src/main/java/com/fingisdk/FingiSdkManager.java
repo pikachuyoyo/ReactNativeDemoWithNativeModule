@@ -227,6 +227,9 @@ public class FingiSdkManager extends ReactContextBaseJavaModule implements Sessi
     serviceItem.addProperty("title", item.getTitle());
     serviceItem.addProperty("picture", item.getPicture().getThumbnailUrl());
     serviceItem.addProperty("icon", item.getIcon().getThumbnailUrl());
+    if (item.getData() != null && item.getData().getAction() != null) {
+      serviceItem.addProperty("action", item.getData().getAction().getData().toString());
+    }
     JsonArray children = new JsonArray();
     for (GuestServiceItem child : item.getChildren()
       ) {

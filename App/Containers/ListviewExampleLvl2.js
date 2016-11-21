@@ -57,6 +57,7 @@ class ListviewExampleLvl2 extends React.Component {
   _renderRow(rowData) {
     return (
       <TouchableOpacity style={styles.row} onPress={()=> {
+        //debugger;
         NavigationActions.listviewExampleLvl3({data: rowData.children})
       }}>
 

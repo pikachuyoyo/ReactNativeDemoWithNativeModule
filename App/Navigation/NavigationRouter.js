@@ -12,6 +12,7 @@ import LoginScreen from '../Containers/LoginScreen'
 import ListviewExample from '../Containers/ListviewExample'
 import ListviewGridExample from '../Containers/ListviewGridExample'
 import ListviewSectionsExample from '../Containers/ListviewSectionsExample'
+import Webview from '../Containers/MyWebView'
 // No maps by default for now
 // import MapviewExample from '../Containers/MapviewExample'
 import APITestingScreen from '../Containers/APITestingScreen'
@@ -50,7 +51,7 @@ class NavigationRouter extends Component {
             />
             <Scene key='presentationScreen' component={PresentationScreen} title='Controls'
                    renderLeftButton={NavItems.hamburgerButton}/>
-
+            <Scene key='webview' component={Webview} title='WebView'/>
 
             <Scene key='listviewGridExample' component={ListviewGridExample} title='Listview Grid'/>
             <Scene key='listviewSectionsExample' component={ListviewSectionsExample} title='Listview Sections'/>

@@ -35,6 +35,18 @@ class ListviewExampleLvl3 extends React.Component {
     }
   }
 
+  handleRowPress(rowData){
+    if (rowData.action) {
+      try {
+        var action = JSON.parse(rowData.action);
+        this.props.setUrl(action.url);
+        NavigationActions.webview({url: action.url})
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+
   componentWillReceiveProps(newProps) {
     // //debugger;
     // console.log('------------ componentWillReceiveProps (guest services) ----------------');
@@ -55,10 +67,11 @@ class ListviewExampleLvl3 extends React.Component {
    return <MyCustomCell title={rowData.title} description={rowData.description} />
    *************************************************************/
   _renderRow(rowData) {
-    return (
-      <TouchableOpacity style={styles.row} onPress={()=> {
 
-      }}>
+    var __myself=this;
+
+    return (
+      <TouchableOpacity style={styles.row} onPress={__myself.handleRowPress.bind(__myself,rowData)}>
 
         <View style={{width: 90, marginRight: 15}}>
           <Image
@@ -106,7 +119,7 @@ class ListviewExampleLvl3 extends React.Component {
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
+          renderRow={this._renderRow.bind(this)}
           pageSize={25}
         />
       </View>
@@ -116,6 +129,7 @@ class ListviewExampleLvl3 extends React.Component {
 
 ListviewExampleLvl3.propTypes = {
   data: PropTypes.array,
+  setUrl: PropTypes.func,
 }
 
 ListviewExampleLvl3.defaultProps = {
@@ -133,6 +147,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     //guestServicesRequest: () => dispatch(FingiSdkActions.guestServicesRequest())
+    setUrl: (url) => dispatch(FingiSdkActions.setUrl(url))
   }
 }
 

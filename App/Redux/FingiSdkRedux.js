@@ -18,6 +18,8 @@ const {Types, Creators} = createActions({
   commandToRoomRequest: ['command'],
   commandToRoomSuccess: null,
   commandToRoomFailure: ['error'],
+
+  setUrl: ['url']
 })
 
 export const FingiSdkTypes = Types
@@ -45,6 +47,8 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
+export const setUrl = (state, {url}) => state.merge({url})
+
 // we're attempting to fingiSdk
 export const connectToRoomRequest = state => state.merge({fetching: true, loggedIn: false, error: null})
 
@@ -57,15 +61,15 @@ export const connectToRoomFailure = (state, {error}) =>
 
 
 // we're attempting to fingiSdk
-export const commandToRoomRequest = state => state.merge({sendingCommand:true})
+export const commandToRoomRequest = state => state.merge({sendingCommand: true})
 
 // we've successfully logged in
 export const commandToRoomSuccess = (state, action) =>
-  state.merge({sendingCommand:false})
+  state.merge({sendingCommand: false})
 
 // we've had a problem logging in
 export const commandToRoomFailure = (state) =>
-  state.merge({sendingCommand:false})
+  state.merge({sendingCommand: false})
 
 // we've logged out
 export const logout = state => INITIAL_STATE
@@ -108,7 +112,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GUEST_SERVICES_FAILURE]: guestServiceFailure,
 
 
-  [Types.LOGOUT]: logout
+  [Types.LOGOUT]: logout,
+  [Types.SET_URL]: setUrl
 })
 
 /* ------------- Selectors ------------- */
