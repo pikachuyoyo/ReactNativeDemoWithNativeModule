@@ -1,7 +1,7 @@
 // @flow
 
 import React, {PropTypes} from 'react'
-import {ScrollView, Text, KeyboardAvoidingView, WebView, InteractionManager} from 'react-native'
+import {ScrollView, Alert, Text, KeyboardAvoidingView, WebView, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -24,16 +24,24 @@ class MyWebView extends React.Component {
     super(params);
 
     this.state = {
-      url: '',
+      url: params.url
     }
   }
 
   componentWillReceiveProps(nextProps) {
+
     console.log("-------- got props ------------");
+    // Alert.alert(
+    //   'Got Props',
+    //   this.state.url + " ->  " + nextProps.url,
+    // );
     var __myself = this;
     InteractionManager.runAfterInteractions(() => {
-      console.log("-------- applying props ------------");
-      console.log(nextProps);
+      // console.log("-------- applying props ------------");
+      // Alert.alert(
+      //   'Applying Props',
+      //   nextProps.url,
+      // );
       __myself.setState({url: nextProps.url});
       __myself.forceUpdate();
 
@@ -47,7 +55,7 @@ class MyWebView extends React.Component {
     return (
       <WebView
         source={{uri: this.state.url}}
-        style={{width: Metrics.screenWidth, height: Metrics.screenHeight,backgroundColor:'red'}}
+        style={{width: Metrics.screenWidth, height: Metrics.screenHeight}}
       />
     )
   }
