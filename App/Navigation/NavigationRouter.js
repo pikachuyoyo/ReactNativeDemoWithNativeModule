@@ -21,6 +21,9 @@ import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import ListviewExampleLvl2 from '../Containers/ListviewExampleLvl2'
 import ListviewExampleLvl3 from '../Containers/ListviewExampleLvl3'
 import Splash from '../Containers/Splash'
+
+import PromotionScreen from '../Containers/PromotionScreen'
+
 /* **************************
  * Documentation: https://github.com/aksonov/react-native-router-flux
  ***************************/
@@ -58,6 +61,9 @@ class NavigationRouter extends Component {
             <Scene key='apiTesting' component={APITestingScreen} title='API Testing'/>
             <Scene key='theme' component={ThemeScreen} title='Theme'/>
             <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info'/>
+
+            <Scene key="promotionScreen" component={PromotionScreen} title='Promotion'/>
+
           </Scene>
         </Scene>
       </Router>

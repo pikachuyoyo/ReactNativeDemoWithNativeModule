@@ -21,7 +21,6 @@
     "android:shake": "$ANDROID_HOME/platform-tools/adb devices | grep '\\t' | awk '{print $1}' | sed 's/\\s//g' | xargs -I {} $ANDROID_HOME/platform-tools/adb -s {} shell input keyevent 82",
     "android:fingisdk":"git clone -b master git@github.com:fingi/fingi-android-sdk.git node_modules/fingi-android-sdk",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
-
   },
   "dependencies": {
     "apisauce": "^0.5.0",
@@ -35,6 +34,7 @@
     "react-native-device-info": "^0.9.5",
     "react-native-drawer": "^2.3.0",
     "react-native-i18n": "^0.1.1",
+    "react-native-image-slider": "^1.1.5",
     "react-native-router-flux": "^3.35.0",
     "react-native-socket.io-client": "^1.4.8",
     "react-native-socketio": "^0.3.0",

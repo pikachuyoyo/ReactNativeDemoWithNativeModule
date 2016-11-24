@@ -36,6 +36,11 @@ class DrawerContent extends Component {
     NavigationActions.presentationScreen()
   }
 
+  handlePromotionScreen = () => {
+    this.toggleDrawer()
+    NavigationActions.promotionScreen()
+  }
+
 
 
   render () {
@@ -45,6 +50,7 @@ class DrawerContent extends Component {
         <DrawerButton text='Login Screen' onPress={this.handlePressLogin} />
         <DrawerButton text='Lobby Screen' onPress={this.handlePressLobby} />
         <DrawerButton text='Control Screen' onPress={this.handlePressControl} />
+        <DrawerButton text='Promotion' onPress={this.handlePromotionScreen} />
       </ScrollView>
     )
   }
