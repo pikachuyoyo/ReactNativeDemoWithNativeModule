@@ -23,6 +23,7 @@ import ListviewExampleLvl3 from '../Containers/ListviewExampleLvl3'
 import Splash from '../Containers/Splash'
 
 import PromotionScreen from '../Containers/PromotionScreen'
+import SignUpScreen from '../Containers/SignUpScreen'
 
 /* **************************
  * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -63,6 +64,7 @@ class NavigationRouter extends Component {
             <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info'/>
 
             <Scene key="promotionScreen" component={PromotionScreen} title='Promotion'/>
+            <Scene key="signUpScreen" component={SignUpScreen} title='Sign Up'/>
 
           </Scene>
         </Scene>

@@ -19,8 +19,9 @@ class Splash extends React.Component {
 
   componentDidMount(){
     setTimeout(function(){
-      NavigationActions.login();
-    },3000)
+      // NavigationActions.login();
+      NavigationActions.promotionScreen();
+    },1000)
   }
 
 

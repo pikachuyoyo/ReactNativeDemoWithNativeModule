@@ -33,6 +33,8 @@ class PromotionScreen extends React.Component {
     // this.isAttempting = false
   }
 
+
+
   componentWillMount() {
     this.setState({interval: setInterval(() => {
         this.setState({position: this.state.position === 2 ? 0 : this.state.position + 1});
@@ -43,9 +45,14 @@ class PromotionScreen extends React.Component {
       clearInterval(this.state.interval);
   }
 
-  handleSignup = (text) => {
-    console.log("go signup");
-  }
+  // handleSignup = (text) => {
+  //   console.log("go signup");
+  // }
+  //
+  // handleSignin = (text) => {
+  //   this.toggleDrawer()
+  //   NavigationActions.login()
+  // }
 
 
   render() {
@@ -68,10 +75,10 @@ class PromotionScreen extends React.Component {
         <View style={{flex:1,flexDirection:'column',justifyContent:'center'}} >
           <View style={Styles.menu} />
           <View style={Styles.menuOver} >
-            <TouchableOpacity style={Styles.button} onPress={()=>{this.handleSignup()}}>
+            <TouchableOpacity style={Styles.button} onPress={NavigationActions.signUpScreen}>
               <Text style={Styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.button} onPress={()=>{this.handleSignup()}}>
+            <TouchableOpacity style={Styles.button} onPress={NavigationActions.login}>
               <Text style={Styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
           </View>
