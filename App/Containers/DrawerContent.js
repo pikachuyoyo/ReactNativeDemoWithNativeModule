@@ -70,8 +70,8 @@ class DrawerContent extends Component {
             />
           </View>
           <View style={styles.headerRight}>
-            <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between',alignItems: 'flex-end',}}>
-              <Text style={{flex:5,fontSize:18,fontWeight: 'bold',color:'#ffffff'}}>Vivianne White</Text>
+            <View style={styles.headerRightTextTop}>
+              <Text style={styles.headerRightTextName}>Vivianne White</Text>
               <View style={{flex:1,height:30}}>
                 {/* <Image
                   source={require('../Images/option.png')}
@@ -84,8 +84,8 @@ class DrawerContent extends Component {
                 />
               </View>
             </View>
-            <View style={{flex:1,flexDirection: 'row',alignItems: 'flex-start',}}>
-              <Text style={{fontSize:14,height:30,color:'#ffffff'}}>RM 100 | Okkami Test</Text>
+            <View style={styles.headerRightTextButtom}>
+              <Text style={styles.headerRightTextRoom}>RM 100 | Okkami Test</Text>
             </View>
 
           </View>
@@ -98,33 +98,37 @@ class DrawerContent extends Component {
               backgroundColor : Colors.fire,
               paddingTop      : 0}}
           >
-            <Panel title="MY ACCOUNT">
+            <Panel title="MY ACCOUNT" child="true" >
               <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
-                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
-                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>Detail account</Text>
+                <View style={styles.panelRow}>
+                  <Text style={styles.panelText}>Detail account</Text>
                 </View>
               </TouchableHighlight>
             </Panel>
-            <Panel title="OKKAMI CONCIERGE">
-              <View></View>
+
+            <Panel title="OKKAMI CONCIERGE" child="false" onPress={this.handlePromotionScreen}/>
+
+            <Panel title="MY BOOKINGS" child="true" >
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={styles.panelRow}>
+                  <Text style={styles.panelText}>FLIGHTS</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={styles.panelRow}>
+                  <Text style={styles.panelText}>HOTELS</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={styles.panelRow}>
+                  <Text style={styles.panelText}>ACTIVITES</Text>
+                </View>
+              </TouchableHighlight>
             </Panel>
-            <Panel title="MY BOOKINGS">
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
-                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
-                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>FLIGHTS</Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
-                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
-                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>HOTELS</Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
-                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
-                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>ACTIVITES</Text>
-                </View>
-              </TouchableHighlight>
+
+            <Panel title="MY Test" child="true" >
             </Panel>
+
           </ScrollView>
 
         </View>

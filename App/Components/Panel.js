@@ -16,7 +16,8 @@ class Panel extends Component{
             title       : props.title,
             expanded    : false,
             animation   : new Animated.Value(),
-            firstStart  : true
+            firstStart  : true,
+            child       : props.child,
         };
 
         console.log("-- Start panel --");
@@ -24,25 +25,27 @@ class Panel extends Component{
     }
 
     toggle(){
-        let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
-            finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
-        console.log("initialValue :" + initialValue)
-        console.log("finalValue :" + finalValue)
+          let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+              finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
-        this.setState({
-            expanded : !this.state.expanded
-        });
+          console.log("initialValue :" + initialValue)
+          console.log("finalValue :" + finalValue)
 
-        console.log("expanded :" + this.state.expanded)
+          this.setState({
+              expanded : !this.state.expanded
+          });
 
-        this.state.animation.setValue(initialValue);
-        Animated.spring(
-            this.state.animation,
-            {
-                toValue: finalValue
-            }
-        ).start();
+          console.log("expanded :" + this.state.expanded)
+
+          this.state.animation.setValue(initialValue);
+          Animated.spring(
+              this.state.animation,
+              {
+                  toValue: finalValue
+              }
+          ).start();
+
     }
 
     _setMaxHeight(event){
@@ -75,13 +78,14 @@ class Panel extends Component{
 
                     <TouchableHighlight
                         style={{flex:1,height:60,borderTopWidth: 2,borderTopColor: '#7B1500'}}
-                        onPress={this.toggle.bind(this)}
+                        // onPress={this.toggle.bind(this)}
+                        onPress={(this.state.child == "true") ? this.toggle.bind(this) : this.props.onPress  }
                         underlayColor="#CB0000">
                         <View style={styles.button}>
                           <Text style={styles.titleText}>{this.state.title}</Text>
                           <View style={{flex:1,height:30,alignItems:'center'}}>
                             <Image
-                                style={styles.buttonImage}
+                                style={(this.state.child == "true") ? styles.buttonImage : styles.imageHidden }
                                 source={icon}
                             />
                           </View>
@@ -146,6 +150,10 @@ var styles = StyleSheet.create({
     },
     body        : {
         paddingTop  : 0,
+    },
+    imageHidden: {
+      width: 0,
+      height:0
     }
 });
 
