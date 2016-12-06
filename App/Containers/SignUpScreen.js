@@ -43,6 +43,10 @@ class SignUpScreen extends React.Component {
 
       <View style={Styles.container}>
         <Image source={require('../Images/splash.png')} style={Styles.backgroundImage} />
+        {/* <Image
+          source={{uri:'http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/256/Home-icon.png'}}
+          style={{width:100,height:100}}
+        /> */}
         <View style={Styles.form}/>
         <View style={Styles.formOver}>
           <TextInput

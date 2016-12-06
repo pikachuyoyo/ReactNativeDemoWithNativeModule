@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import { ScrollView, Image, BackAndroid } from 'react-native'
+import { ScrollView, Image, BackAndroid, View, Text, ListView,TouchableOpacity,TouchableHighlight } from 'react-native'
 import styles from './Styles/DrawerContentStyle'
-import { Images } from '../Themes'
+import {Images, Colors, Metrics} from '../Themes'
 import DrawerButton from '../Components/DrawerButton'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Panel from '../Components/Panel';
+
 
 class DrawerContent extends Component {
+
+  constructor(props) {
+    super(props)
+  }
 
   componentDidMount () {
     BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -45,13 +52,83 @@ class DrawerContent extends Component {
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <Image source={Images.logo} style={styles.logo} />
-        <DrawerButton text='Login Screen' onPress={this.handlePressLogin} />
-        <DrawerButton text='Lobby Screen' onPress={this.handlePressLobby} />
-        <DrawerButton text='Control Screen' onPress={this.handlePressControl} />
-        <DrawerButton text='Promotion' onPress={this.handlePromotionScreen} />
-      </ScrollView>
+      // <ScrollView style={styles.container}>
+      //   <Image source={Images.logo} style={styles.logo} />
+      //   <DrawerButton text='Login Screen' onPress={this.handlePressLogin} />
+      //   <DrawerButton text='Lobby Screen' onPress={this.handlePressLobby} />
+      //   <DrawerButton text='Control Screen' onPress={this.handlePressControl} />
+      //   <DrawerButton text='Promotion' onPress={this.handlePromotionScreen} />
+      // </ScrollView>
+
+      <View style={styles.container}>
+
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <Image
+              source={{uri:'https://s3.amazonaws.com/fingi/assets/thumbnail_guest_avatar-2f5072fba40190f1114c2dd37f3bb907.png'}}
+              style={styles.avatar}
+            />
+          </View>
+          <View style={styles.headerRight}>
+            <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between',alignItems: 'flex-end',}}>
+              <Text style={{flex:5,fontSize:18,fontWeight: 'bold',color:'#ffffff'}}>Vivianne White</Text>
+              <View style={{flex:1,height:30}}>
+                {/* <Image
+                  source={require('../Images/option.png')}
+                  style={{width:30,height:30}}
+                /> */}
+                <Icon name='gear'
+                      size={Metrics.icons.medium}
+                      color={Colors.snow}
+                      onPress={this.handlePromotionScreen}
+                />
+              </View>
+            </View>
+            <View style={{flex:1,flexDirection: 'row',alignItems: 'flex-start',}}>
+              <Text style={{fontSize:14,height:30,color:'#ffffff'}}>RM 100 | Okkami Test</Text>
+            </View>
+
+          </View>
+        </View>
+
+        <View style={styles.mainMenu}>
+
+          <ScrollView style={{
+              flex            : 1,
+              backgroundColor : Colors.fire,
+              paddingTop      : 0}}
+          >
+            <Panel title="MY ACCOUNT">
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
+                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>Detail account</Text>
+                </View>
+              </TouchableHighlight>
+            </Panel>
+            <Panel title="OKKAMI CONCIERGE">
+              <View></View>
+            </Panel>
+            <Panel title="MY BOOKINGS">
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
+                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>FLIGHTS</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
+                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>HOTELS</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+                <View style={{flexDirection: 'row',alignItems:'center',height:55,backgroundColor:'#421213', borderTopWidth: 2,borderTopColor: '#7B1500' }}>
+                  <Text style={{color:'#ffffff',fontWeight:'bold',fontSize:16,marginLeft:35}}>ACTIVITES</Text>
+                </View>
+              </TouchableHighlight>
+            </Panel>
+          </ScrollView>
+
+        </View>
+      </View>
     )
   }
 
