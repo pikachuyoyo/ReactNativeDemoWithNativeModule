@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Keyboard,
-  LayoutAnimation
+  LayoutAnimation,
 } from 'react-native'
 import {connect} from 'react-redux'
 import Styles from './Styles/SignUpScreenStyle'
@@ -30,6 +30,10 @@ class SignUpScreen extends React.Component {
     }
   }
 
+  handlePressLogin = () => {
+    NavigationActions.login()
+  }
+
   render() {
     let index = 0;
     const data = [
@@ -49,26 +53,31 @@ class SignUpScreen extends React.Component {
         /> */}
         <View style={Styles.form}/>
         <View style={Styles.formOver}>
-          <TextInput
-            ref='name'
-            style={Styles.textInput}
-            keyboardType='default'
-            placeholder='First & LastName'/>
-          <TextInput
-            ref='email'
-            style={Styles.textInput}
-            keyboardType='default'
-            placeholder='Email'/>
-          <TextInput
-            ref='phone'
-            style={Styles.textInput}
-            keyboardType='default'
-            placeholder='Phone#'/>
-          <TextInput
-            ref='hometown'
-            style={Styles.textInput}
-            keyboardType='default'
-            placeholder='Hometown'/>
+          <View style={{justifyContent: 'center'}}>
+            <TextInput
+              ref='name'
+              style={Styles.textInput}
+              keyboardType='default'
+              placeholder='First & LastName'
+              underlineColorAndroid='transparent'
+              />
+            <TextInput
+              ref='email'
+              style={Styles.textInput}
+              keyboardType='default'
+              placeholder='Email'
+              underlineColorAndroid='transparent'/>
+            <TextInput
+              ref='phone'
+              style={Styles.textInput}
+              keyboardType='default'
+              placeholder='Phone#'/>
+            <TextInput
+              ref='hometown'
+              style={Styles.textInput}
+              keyboardType='default'
+              placeholder='Hometown'/>
+          </View>
           {/* <Picker
             style={Styles.selectInput}
             selectedValue={this.state.selectLanguage}
@@ -89,10 +98,10 @@ class SignUpScreen extends React.Component {
               onChange={(lang) => this.setState({selectLanguage: lang})}
           >
           </ModalPicker>
-          <TouchableOpacity style={Styles.buttonSnow} onPress={NavigationActions.login}>
+          <TouchableOpacity style={Styles.buttonSnow} onPress={NavigationActions.socialConnectionScreen}>
             <Text style={Styles.buttonTextSnow}>Social Connection</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={Styles.buttonSnow} onPress={NavigationActions.login}>
+          <TouchableOpacity style={Styles.buttonSnow} onPress={NavigationActions.uploadPictureScreen}>
             <Text style={Styles.buttonTextSnow}>Avatar/Picture</Text>
           </TouchableOpacity>
           <TouchableOpacity style={Styles.buttonCreate} >

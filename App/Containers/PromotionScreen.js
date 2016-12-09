@@ -78,7 +78,7 @@ class PromotionScreen extends React.Component {
             <TouchableOpacity style={Styles.button} onPress={NavigationActions.signUpScreen}>
               <Text style={Styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.button} onPress={NavigationActions.login}>
+            <TouchableOpacity style={Styles.button} onPress={NavigationActions.signInScreen}>
               <Text style={Styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
           </View>

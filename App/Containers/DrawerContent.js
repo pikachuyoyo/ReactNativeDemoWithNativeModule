@@ -48,6 +48,12 @@ class DrawerContent extends Component {
     NavigationActions.promotionScreen()
   }
 
+  handleWebview(url){
+    this.toggleDrawer()
+    // NavigationActions.webview({url: 'http://www.kapook.com'})
+    NavigationActions.openWebView({url:url})
+  }
+
 
 
   render () {
@@ -106,27 +112,24 @@ class DrawerContent extends Component {
               </TouchableHighlight>
             </Panel>
 
-            <Panel title="OKKAMI CONCIERGE" child="false" onPress={this.handlePromotionScreen}/>
+            <Panel title="OKKAMI CONCIERGE" child="false" onPress={this.handlePressLobby}/>
 
             <Panel title="MY BOOKINGS" child="true" >
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'http://whitelabel.dohop.com/w/okkami/')} >
                 <View style={styles.panelRow}>
                   <Text style={styles.panelText}>FLIGHTS</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'http://www.booking.com/?aid=1151726')} >
                 <View style={styles.panelRow}>
                   <Text style={styles.panelText}>HOTELS</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'https://www.partner.viator.com/en/19488')} >
                 <View style={styles.panelRow}>
                   <Text style={styles.panelText}>ACTIVITES</Text>
                 </View>
               </TouchableHighlight>
-            </Panel>
-
-            <Panel title="MY Test" child="true" >
             </Panel>
 
           </ScrollView>

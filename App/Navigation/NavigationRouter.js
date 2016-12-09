@@ -24,6 +24,10 @@ import Splash from '../Containers/Splash'
 
 import PromotionScreen from '../Containers/PromotionScreen'
 import SignUpScreen from '../Containers/SignUpScreen'
+import SignInScreen from '../Containers/SignInScreen'
+import UploadPictureScreen from '../Containers/UploadPictureScreen'
+import SocialConnectionScreen from '../Containers/SocialConnectionScreen'
+import openWebView from '../Containers/OpenWebView'
 
 /* **************************
  * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -65,6 +69,10 @@ class NavigationRouter extends Component {
 
             <Scene key="promotionScreen" component={PromotionScreen} title='Promotion'/>
             <Scene key="signUpScreen" component={SignUpScreen} title='Sign Up'/>
+            <Scene key="signInScreen" component={SignInScreen} title='Sign In'/>
+            <Scene key="uploadPictureScreen" component={UploadPictureScreen} title='Avatar/Picture'/>
+            <Scene key="socialConnectionScreen" component={SocialConnectionScreen} title='Social Connection'/>
+            <Scene key="openWebView" component={openWebView} title='Web'/>
 
           </Scene>
         </Scene>

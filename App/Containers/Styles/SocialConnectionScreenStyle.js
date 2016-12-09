@@ -6,7 +6,7 @@ import Dimensions from 'Dimensions';
 // width: Metrics.screenWidth,
 // height: Metrics.screenHeight
 
-const width = Dimensions.get('window').width;
+const width = (Dimensions.get('window').width)/1.3;
 
 export default StyleSheet.create({
   container: {
@@ -39,37 +39,18 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  textInput: {
-    width: width/1.3,
-    height: 40,
-    borderRadius: 2,
-    backgroundColor: Colors.snow,
-    marginTop:10,
-    textAlign: 'center',
-  },
-  selectInput:{
-    width: width/1.3,
-    height: 40,
-    borderRadius: 2,
-    backgroundColor: Colors.snow,
-    marginTop:10,
-  },
-  buttonSnow: {
-      width: width/1.3,
+  buttonFire: {
+      width: width,
       height: 40,
       borderRadius: 5,
-      marginHorizontal: Metrics.section,
-      // marginVertical: Metrics.baseMargin,
       marginTop:10,
-      backgroundColor: Colors.snow,
+      backgroundColor: Colors.fire,
       justifyContent: 'center'
   },
-  buttonFire: {
-      width: width/1.3,
+  buttonFireSplitTwo: {
+      width: width/2.5,
       height: 40,
       borderRadius: 5,
-      marginHorizontal: Metrics.section,
-      // marginVertical: Metrics.baseMargin,
       marginTop:10,
       backgroundColor: Colors.fire,
       justifyContent: 'center'
@@ -81,21 +62,44 @@ export default StyleSheet.create({
     fontSize: Fonts.size.medium,
     marginVertical: Metrics.baseMargin
   },
-  buttonTextSnow: {
-    color: Colors.coal,
-    textAlign: 'center',
+  avatar: {
+    marginTop:50,
+    marginBottom:50,
+    alignSelf: 'center',
+    width:width/1.2,
+    height:width/1.2,
+    borderRadius: width/2,
+  },
+  formCheckBox: {
+    width:width,
+    height:50,
+    marginTop:10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  textInput: {
+    width: width,
+    height: 40,
+    borderRadius: 2,
+    backgroundColor: Colors.snow,
+    marginTop:10,
+  },
+  textAreaInput: {
+    width: width,
+    height: 100,
+    borderRadius: 2,
+    backgroundColor: Colors.snow,
+    marginTop:10,
+    textAlignVertical: 'top'
+  },
+  textForm: {
+    width: width/2.5,
+    // height: 40,
+    color: '#ffffff',
     fontWeight: 'bold',
-    fontSize: Fonts.size.medium,
-    marginVertical: Metrics.baseMargin
+    fontSize: 18,
+    textAlignVertical: 'center',
+    backgroundColor: Colors.clear,
   },
-  buttonCreate: {
-      width: width/1.3,
-      height: 45,
-      borderRadius: 5,
-      marginHorizontal: Metrics.section,
-      marginTop:30,
-      backgroundColor: Colors.fire,
-      justifyContent: 'center'
-  },
-
 })
