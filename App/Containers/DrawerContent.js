@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ScrollView, Image, BackAndroid, View, Text, ListView,TouchableOpacity,TouchableHighlight } from 'react-native'
-import styles from './Styles/DrawerContentStyle'
+import Styles from './Styles/DrawerContentStyle'
 import {Images, Colors, Metrics} from '../Themes'
 import DrawerButton from '../Components/DrawerButton'
 import { Actions as NavigationActions } from 'react-native-router-flux'
@@ -54,6 +54,11 @@ class DrawerContent extends Component {
     NavigationActions.openWebView({url:url})
   }
 
+  handleLandingScreen = () => {
+    this.toggleDrawer()
+    NavigationActions.landingScreen()
+  }
+
 
 
   render () {
@@ -66,18 +71,19 @@ class DrawerContent extends Component {
       //   <DrawerButton text='Promotion' onPress={this.handlePromotionScreen} />
       // </ScrollView>
 
-      <View style={styles.container}>
+      <View style={Styles.container}>
 
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
+        <View style={Styles.header}>
+          <View style={Styles.headerLeft}>
             <Image
-              source={{uri:'https://s3.amazonaws.com/fingi/assets/thumbnail_guest_avatar-2f5072fba40190f1114c2dd37f3bb907.png'}}
-              style={styles.avatar}
+              // source={{uri:'https://s3.amazonaws.com/fingi/assets/thumbnail_guest_avatar-2f5072fba40190f1114c2dd37f3bb907.png'}}
+              source={require('../Images/avatar.png')}
+              style={Styles.avatar}
             />
           </View>
-          <View style={styles.headerRight}>
-            <View style={styles.headerRightTextTop}>
-              <Text style={styles.headerRightTextName}>Vivianne White</Text>
+          <View style={Styles.headerRight}>
+            <View style={Styles.headerRightTextTop}>
+              <Text style={Styles.headerRightTextName}>Vivianne White</Text>
               <View style={{flex:1,height:30}}>
                 {/* <Image
                   source={require('../Images/option.png')}
@@ -90,14 +96,14 @@ class DrawerContent extends Component {
                 />
               </View>
             </View>
-            <View style={styles.headerRightTextButtom}>
-              <Text style={styles.headerRightTextRoom}>RM 100 | Okkami Test</Text>
+            <View style={Styles.headerRightTextButtom}>
+              <Text style={Styles.headerRightTextRoom}>RM 100 | Okkami Test</Text>
             </View>
 
           </View>
         </View>
 
-        <View style={styles.mainMenu}>
+        <View style={Styles.mainMenu}>
 
           <ScrollView style={{
               flex            : 1,
@@ -106,28 +112,35 @@ class DrawerContent extends Component {
           >
             <Panel title="MY ACCOUNT" child="true" >
               <TouchableHighlight  underlayColor="#ffffff" onPress={this.handlePromotionScreen} >
-                <View style={styles.panelRow}>
-                  <Text style={styles.panelText}>Detail account</Text>
+                <View style={Styles.panelRow}>
+                  <Text style={Styles.panelText}>Detail account</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleLandingScreen} >
+                <View style={Styles.panelRow}>
+                  <Text style={Styles.panelText}>Landing Screen</Text>
                 </View>
               </TouchableHighlight>
             </Panel>
 
-            <Panel title="OKKAMI CONCIERGE" child="false" onPress={this.handlePressLobby}/>
+            <Panel title="OKKAMI CONCIERGE" child="false" onPress={this.handlePressLobby}>
+              <View></View>
+            </Panel>
 
             <Panel title="MY BOOKINGS" child="true" >
               <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'http://whitelabel.dohop.com/w/okkami/')} >
-                <View style={styles.panelRow}>
-                  <Text style={styles.panelText}>FLIGHTS</Text>
+                <View style={Styles.panelRow}>
+                  <Text style={Styles.panelText}>FLIGHTS</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'http://www.booking.com/?aid=1151726')} >
-                <View style={styles.panelRow}>
-                  <Text style={styles.panelText}>HOTELS</Text>
+                <View style={Styles.panelRow}>
+                  <Text style={Styles.panelText}>HOTELS</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight  underlayColor="#ffffff" onPress={this.handleWebview.bind(this,'https://www.partner.viator.com/en/19488')} >
-                <View style={styles.panelRow}>
-                  <Text style={styles.panelText}>ACTIVITES</Text>
+                <View style={Styles.panelRow}>
+                  <Text style={Styles.panelText}>ACTIVITES</Text>
                 </View>
               </TouchableHighlight>
             </Panel>

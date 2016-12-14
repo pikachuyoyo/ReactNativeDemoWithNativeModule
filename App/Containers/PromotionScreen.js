@@ -54,6 +54,9 @@ class PromotionScreen extends React.Component {
   //   NavigationActions.login()
   // }
 
+  handlePressSignup = () => {
+    NavigationActions.signUpScreen()
+  }
 
   render() {
     console.log(Dimensions.get('window').height)
@@ -62,10 +65,15 @@ class PromotionScreen extends React.Component {
 
         <View style={Styles.slide}>
           <ImageSlider
+            // images={[
+            //   'http://res.cloudinary.com/hgbjdmat9/image/upload/lvwaopbb8wul0w31lrbz.png',
+            //   'http://placeimg.com/640/480/any',
+            //   'http://res.cloudinary.com/hgbjdmat9/image/upload/c_fit/lp9waobcs5l4zdtm1lsi.png'
+            // ]}
             images={[
-              'http://res.cloudinary.com/hgbjdmat9/image/upload/lvwaopbb8wul0w31lrbz.png',
-              'http://placeimg.com/640/480/any',
-              'http://res.cloudinary.com/hgbjdmat9/image/upload/c_fit/lp9waobcs5l4zdtm1lsi.png'
+              require("../Images/splash.png"),
+              require("../Images/okkami_slide_01.png"),
+              require("../Images/okkami_slide_02.png")
             ]}
             height={this.state.height}
             position={this.state.position}
@@ -75,7 +83,7 @@ class PromotionScreen extends React.Component {
         <View style={{flex:1,flexDirection:'column',justifyContent:'center'}} >
           <View style={Styles.menu} />
           <View style={Styles.menuOver} >
-            <TouchableOpacity style={Styles.button} onPress={NavigationActions.signUpScreen}>
+            <TouchableOpacity style={Styles.button} onPress={this.handlePressSignup}>
               <Text style={Styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
             <TouchableOpacity style={Styles.button} onPress={NavigationActions.signInScreen}>

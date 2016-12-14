@@ -76,7 +76,6 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ccc'
     },
-
     sectionTextStyle: {
         textAlign: 'center',
         fontSize: FONT_SIZE

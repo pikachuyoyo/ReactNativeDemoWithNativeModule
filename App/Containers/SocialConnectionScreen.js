@@ -27,7 +27,7 @@ class SocialConnectionScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectLanguage: '',
+      selectLanguage: 'TH',
       checkedFacebook: false,
       checkedLine: false,
       checkedWechat: false,
@@ -35,11 +35,17 @@ class SocialConnectionScreen extends React.Component {
   }
 
   handlePressCheckedBox(obj){
+
+    //clear all checkbox
+    this.state.checkedFacebook = false
+    this.state.checkedLine = false
+    this.state.checkedWechat = false
+
     this.setState(obj);
   }
 
-  handlePressLogin = () => {
-    NavigationActions.login()
+  handlePressSignIn = () => {
+    NavigationActions.socialConnectionSignInScreen({social: this.state})
   }
 
   render() {
@@ -98,11 +104,9 @@ class SocialConnectionScreen extends React.Component {
               iconStyle={{color:'#ffffff'}}/>
           </View>
 
-          <TouchableOpacity style={Styles.buttonFire} >
+          <TouchableOpacity style={Styles.buttonFire} onPress={this.handlePressSignIn} >
             <Text style={Styles.buttonText}>Save</Text>
           </TouchableOpacity>
-
-
 
         </View>
 

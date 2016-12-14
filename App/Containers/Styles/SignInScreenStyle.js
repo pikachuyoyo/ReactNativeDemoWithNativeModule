@@ -118,5 +118,14 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  indicatorView: {
+    paddingTop:100,
+    width: Metrics.screenWidth,
+    height: 200,
+    position: "absolute",
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
 
 })

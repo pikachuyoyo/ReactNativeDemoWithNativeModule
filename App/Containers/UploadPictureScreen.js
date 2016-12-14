@@ -42,7 +42,7 @@ class UploadPictureScreen extends React.Component {
         <View style={Styles.form}/>
         <View style={Styles.formOver}>
           <Image
-            source={{uri:'https://s3.amazonaws.com/fingi/assets/thumbnail_guest_avatar-2f5072fba40190f1114c2dd37f3bb907.png'}}
+            source={require('../Images/avatar.png')}
             style={Styles.avatar}
           />
 

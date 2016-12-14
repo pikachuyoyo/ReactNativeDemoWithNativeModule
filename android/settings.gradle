@@ -13,3 +13,5 @@ include ':react-native-config'
 project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
 include ':fingi-android-sdk:fingi-android-sdk'
 project(':fingi-android-sdk:fingi-android-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/fingi-android-sdk/fingi-android-sdk')
+include ':react-native-linear-gradient'
+project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')

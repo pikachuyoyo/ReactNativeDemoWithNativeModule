@@ -152,6 +152,7 @@ dependencies {
   compile 'org.slf4j:slf4j-api:1.7.5'
   compile 'com.github.tony19:logback-android-classic:1.0.10-2'
   compile 'com.google.code.gson:gson:2.2.4'
+  compile project(':react-native-linear-gradient')
 }
 
 // Run this once to be able to run the application with BUCK

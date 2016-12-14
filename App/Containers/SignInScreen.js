@@ -29,8 +29,8 @@ class SignInScreen extends React.Component {
     }
   }
 
-  handlePressLogin = () => {
-    NavigationActions.login()
+  handlePressSignup = () => {
+    NavigationActions.signUpScreen({type: "replace"})
   }
 
   render() {
@@ -42,7 +42,7 @@ class SignInScreen extends React.Component {
         <View style={Styles.form}/>
         <View style={Styles.formOver}>
           <Image
-            source={{uri:'https://s3.amazonaws.com/fingi/assets/thumbnail_guest_avatar-2f5072fba40190f1114c2dd37f3bb907.png'}}
+            source={require('../Images/avatar.png')}
             style={Styles.avatar}
           />
           <TextInput
@@ -59,9 +59,11 @@ class SignInScreen extends React.Component {
             underlineColorAndroid='transparent'/>
 
           <View style={Styles.formButton}>
-            <TouchableOpacity style={Styles.buttonFireSplitTwo} >
+            <TouchableOpacity style={Styles.buttonFireSplitTwo} onPress={this.handlePressSignup} >
               <Text style={Styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
+
+            {/* TODO login to core */}
             <TouchableOpacity style={Styles.buttonFireSplitTwo} >
               <Text style={Styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
